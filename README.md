@@ -1,6 +1,6 @@
-# Getting started with Blinky on mbed OS
+# Getting started with Putget Temperature
 
-This guide reviews the steps required to get Blinky working on an mbed OS platform.
+This guide reviews the steps required to get Putget working on an mbed OS platform.
 
 Please install [mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
 
@@ -9,8 +9,8 @@ Please install [mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cl
 From the command-line, import the example:
 
 ```
-mbed import mbed-os-example-blinky
-cd mbed-os-example-blinky
+mbed import ccb24_a1
+cd ccb24_a1
 ```
 
 ### Now compile
@@ -41,16 +41,17 @@ Allocated Stack: unknown
 Total Static RAM memory (data + bss): 7168 bytes
 Total RAM memory (data + bss + heap + stack): 7168 bytes
 Total Flash memory (text + data + misc): 43402 bytes
-Image: .\.build\K64F\ARM\mbed-os-example-blinky.bin
+Image: .\.build\K64F\ARM\ccb24_a1_K64F.bin
 ```
 
 ### Program your board
 
 1. Connect your mbed device to the computer over USB.
-1. Copy the binary file to the mbed device.
-1. Press the reset button to start the program.
+2. Connect your mbed device to the Internet over Ethernet.
+3. Copy the binary file to the mbed device.
+4. Press the reset button to start the program.
 
-The LED on your platform turns on and off.
+The LCD on your platform turns on and it starts sending and receiving the temperature data.
 
 ## Troubleshooting
 
