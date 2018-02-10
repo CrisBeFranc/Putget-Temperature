@@ -40,7 +40,7 @@
 #define CONTENT_LENGHT "Content-Length: "
 #define JUMP "\r\n"
 
-/** 
+/**
 *   DEF: Thread Components Definition
 */
 
@@ -54,7 +54,7 @@ void sendTemperatureToCCB24();
 */
 void getTemperatureFromShed();
 
-/** 
+/**
 *   DEF: HTTP Packages Definition & Creation
 */
 
@@ -72,21 +72,21 @@ void createPutRequest(char* put_packet);
 */
 void createGetRequest(char* get_packet);
 
-/** 
+/**
 *   DEF: Generic Printings on Serial and LCD
 */
 
-/** Print Device Network Information 
+/** Print Device Network Information
 *
 */
 void printData();
 
-/** Print LCD Layout 
+/** Print LCD Layout
 *
 */
 void printMenuMBED();
 
-/** 
+/**
 *   DEF: Logic to Send and Receive HTTP Packets
 */
 
@@ -105,7 +105,7 @@ void sendTemperature(TCPSocket &socket);
 void recieveTemperature(TCPSocket &socket);
 
 
-/** 
+/**
 *   DEF: Error Formatting, Actions and Trigger
 */
 
