@@ -1,3 +1,18 @@
+/* Mbed library for the mbed Lab Board - Socket Connection to PUT and GET Data
+ * on/from a Server
+ * Copyright (c) 2018 Cristian Camilo Benavides Franco - University of Kent
+ * Includes of C12832 and LM75B Libraries Designed By:
+ * Peter Drescher and cstyles.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "LM75B.h"
@@ -32,7 +47,7 @@ Thread packageGET;
 Timer to_get, to_put;
 
 //Flag Collision Control and LCD printing controll flag
-bool is_bussy, menu_available = false;
+bool is_bussy, menu_available = false, program_init = true;
 
 //Control Variable
 float sent_temperature = NULL;
@@ -65,12 +80,6 @@ int main()
 
         //Print On Display Temperature.
         printMenuMBED();
-        
-        //Send first lecture to server (CCB24) - PUT ACTION
-        packagePUT.signal_set(0x1);
-        
-        //Receive first lecture from server (SHED) - GET ACTION
-        packageGET.signal_set(0x1);
 
         while (true) {
 
@@ -89,16 +98,17 @@ int main()
             }
 
             //HTTP PUT to send a temperature reading to CCB24 at least once every 120 seconds.
-            if ((to_put.read() * 10) >= 1200.0) {
+            if ((to_put.read() * 10) >= 1200.0 || program_init) {
                 sent_temperature = rounded_up;
                 packagePUT.signal_set(0x1);
                 to_put.reset();
             }
 
             //HTTP GET to receive a temperature reading from THE-SHED every 30 seconds.
-            if ((to_get.read() * 10) >= 300.0) {
+            if ((to_get.read() * 10) >= 300.0 || program_init) {
                 sent_temperature = rounded_up;
                 packageGET.signal_set(0x1);
+                program_init = false;
                 to_get.reset();
             }
             wait(1.0);
